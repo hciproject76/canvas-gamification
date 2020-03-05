@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import json
+from django.contrib.messages import constants as message_constants
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.urls import reverse_lazy
@@ -38,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djrichtextfield',
     'accounts',
+    'course',
+    'jsoneditor',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +111,27 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.ckeditor.com/4.14.0/full-all/ckeditor.js'],
+    'init_template': 'djrichtextfield/init/ckeditor.js',
+    'profiles': {
+        'basic': {
+            'toolbar': [
+                {'items': ['Format', '-', 'Bold', 'Italic', '-',
+                           'RemoveFormat']},
+                {'items': ['Link', 'Unlink', 'Image', 'Table']},
+                {'items': ['Source']}
+            ],
+            'format_tags': 'p;h1;h2;h3',
+        },
+        'advanced': {
+            'extraPlugins': 'codesnippet',
+        },
+    }
+}
+
+MESSAGE_TAGS = {message_constants.ERROR: 'danger'}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
